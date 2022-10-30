@@ -1,0 +1,54 @@
+#:import utils kivy.utils
+<LoginPage>:
+    FloatLayout:
+        canvas:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "icones/bg1.png"
+        Label:
+            ### Para aplicar cor, use o markup
+            text: "CONTROLE DE [color=#00CFDB] VENDAS DE ITAJUBÁ[/color]"
+            bold: True
+            markup: True
+            pos_hint: {"right": 0.9, "top": 0.9}
+            size_hint: 0.8, 0.2
+        TextInput:
+            id:email_input
+            hint_text: "Digite seu e-mail"
+            pos_hint: {"right": 0.9, "top": 0.7}
+            size_hint: 0.8, 0.1
+        TextInput:
+            id:senha_input
+            password: True
+            hint_text: "Digite sua senha"
+            pos_hint: {"right": 0.9, "top": 0.55}
+            size_hint: 0.8, 0.1
+        Label:
+            id: message_login
+            text: "[color=#00CFDB] Faça seu login [/color]"
+            bold: True
+            markup: True
+            pos_hint: {"right": 0.9, "top": 0.4}
+            size_hint: 0.8, 0.1
+        LabelButton:
+            canvas.before:
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+                    ### Aqui se define que quando o usuário apertar, muda a imagem, que é a mesma mas com estilo de apertando, fazendo resultado parecido com o :active do css
+                    source: "icones/botao.png"  if self.state == "normal" else "icones/botao_apertado.png"
+            on_release: app.firebase.acessar_conta(email_input.text, senha_input.text)
+            text: "Faça seu login"
+            pos_hint: {"right": 0.45, "top": 0.3}
+            size_hint: 0.4, 0.2
+        LabelButton:
+            canvas.before:
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+                    source: "icones/botao.png" if self.state == "normal" else "icones/botao_apertado.png"
+            on_release: app.firebase.criar_conta(email_input.text, senha_input.text)
+            text: "Criar sua conta"
+            pos_hint: {"right": 0.95, "top": 0.3}
+            size_hint: 0.4, 0.2

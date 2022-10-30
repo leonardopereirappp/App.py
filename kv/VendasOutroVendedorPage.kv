@@ -1,0 +1,59 @@
+#:import utils kivy.utils
+<VendasOutroVendedorPage>:
+    FloatLayout:
+        canvas:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "icones/bg1.png"
+
+        Label:
+            canvas.before:
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+                    source: "icones/botao_fino.png"
+            pos_hint: {"right": 0.85, "top": 0.95}
+            size_hint: 0.7, 0.2
+            bold: True
+            text: "Total de vendas: R$ 1"
+            id: total_vendas
+            markup: True
+
+        ScrollView:
+            pos_hint: {'right': 1, 'top': 0.78}
+            size_hint: 1,0.63
+            GridLayout:
+                cols: 1
+                id: lista_vendas
+                ### Agora tu pensa: o scroll é vertical ou horizontal?
+                size_hint_y: None
+                ### Acho que o primeiro valor do spacing é para itens na horizontal e o segundo serve para itens na vertical
+                spacing: 2,5
+                height: self.minimum_height
+                row_default_height: "90dp"
+                row_force_default: True
+
+                ### Caso quisesse fazer com scroll lateral:
+                ### size_hint_x: None
+                ### width: self.minimum_width
+                ### col_default_height: "90dp"
+                ### col_force_default: True
+
+        ### Aqui é a navbar que fica na parte de baixo ( tipo o footer do HTML )
+        FloatLayout:
+            pos_hint: {"right": 1, "top": 0.14}
+            size_hint: 1, 0.14
+            canvas:
+                Color:
+                    rgb: utils.get_color_from_hex("#006D7E")
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            # Botão de adicionar
+            ImageButton:
+                pos_hint: {"right": 0.2, "top": 0.9}
+                size_hint: 0.2, 0.8
+                source: "icones/voltar.png"
+                on_release: app.muda_tela_troca_foto("listarvendedorespage")

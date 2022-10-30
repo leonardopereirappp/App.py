@@ -1,0 +1,118 @@
+#:import utils kivy.utils
+<AdicionarVendasPage>:
+    FloatLayout:
+        canvas:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "icones/bg1.png"
+        ### Selecionar o cliente
+        Label:
+            pos_hint: {"right": 1, "top": 1}
+            size_hint: 1, 0.05
+            text: "Selecione o Cliente"
+            id: selecionar_clientes
+        ScrollView:
+            pos_hint: {'right': 1, 'top': 0.95}
+            size_hint: 1,0.15
+            GridLayout:
+                rows: 1
+                id: lista_clientes
+                size_hint_x: None
+                width: self.minimum_width
+                col_default_width: "90dp"
+                col_force_default: True
+        ### Selecionar o produto
+        Label:
+            pos_hint: {"right": 1, "top": 0.75}
+            size_hint: 1, 0.05
+            text: "Selecione o Produto"
+            id: selecionar_produto
+        ScrollView:
+            pos_hint: {'right': 1, 'top': 0.7}
+            size_hint: 1,0.15
+            GridLayout:
+                rows: 1
+                id: lista_produtos
+                size_hint_x: None
+                width: self.minimum_width
+                col_default_width: "90dp"
+                col_force_default: True
+        Label:
+            id: data_atual
+            bold: True
+            pos_hint: {"right": 1, "top": 0.5}
+            size_hint: 1, 0.05
+            text: "28/10/2022"
+        ### Selecionar a unidade
+        GridLayout:
+            rows: 1
+            pos_hint: {"right": 0.9, "top": 0.45}
+            size_hint: 0.8, 0.1
+            ### Os textos que aparecerão
+            LabelButton:
+                text: "kg"
+                id: unidades_kg
+                on_release: app.selecionar_unidades("unidades_kg")
+            LabelButton:
+                text: "unidades"
+                id: unidades_unidades
+                on_release: app.selecionar_unidades("unidades_unidades")
+            LabelButton:
+                text: "litros"
+                id: unidades_litros
+                on_release: app.selecionar_unidades("unidades_litros")
+
+        ### Botão de cancelar processo do fim da página, pois se colocar depois do InputText, ele fica bugado na cor
+
+        LabelButton:
+            canvas.before:
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+                    ### Aqui se define que quando o usuário apertar, muda a imagem, que é a mesma mas com estilo de apertando, fazendo resultado parecido com o :active do css
+                    source: "icones/botao.png"  if self.state == "normal" else "icones/botao_apertado.png"
+            on_release: app.mudar_tela("homepage")
+            text: "Cancelar"
+            pos_hint: {"right": 0.45, "top": 0.2}
+            size_hint: 0.4, 0.2
+
+        ### Botão de confirmar processo do fim da página, lê o comentário de cima!
+
+        LabelButton:
+            canvas.before:
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+                    source: "icones/botao.png" if self.state == "normal" else "icones/botao_apertado.png"
+            on_release: app.adicionar_venda()
+            text: "Confirmar"
+            pos_hint: {"right": 0.95, "top": 0.2}
+            size_hint: 0.4, 0.2
+
+        ### Selecionar o preço total
+        GridLayout:
+            rows: 1
+            pos_hint: {"right": 0.9, "top": 0.355}
+            size_hint: 0.8, 0.075
+            Label:
+                id: preco_total_texto
+                text: "Preço total (R$): "
+            TextInput:
+                id: preco_total
+                hint_text: "Digite apenas números"
+
+        ### Selecionar a quantidade
+        GridLayout:
+            rows: 1
+            pos_hint: {"right": 0.9, "top": 0.275}
+            size_hint: 0.8, 0.075
+            Label:
+                id: qtde_total_texto
+                text: "Quantidade total: "
+            TextInput:
+                id: qtde_total
+                hint_text: "0"
+
+
+

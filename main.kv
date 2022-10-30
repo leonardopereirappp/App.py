@@ -1,0 +1,66 @@
+###Aqui é um pouco parecido com C, mas é a importação de outro arquivo
+#:include kv/HomePage.kv
+#:include kv/AjustesPage.kv
+#:include kv/ListarVendedoresPage.kv
+#:include kv/FotoPerfilPage.kv
+#:include kv/AdicionarVendedoresPage.kv
+#:include kv/AdicionarVendasPage.kv
+#:include kv/LoginPage.kv
+#:include kv/TodasVendasPage.kv
+#:include kv/VendasOutroVendedorPage.kv
+
+###Para o FloatLayout/canvas/color/rgb funcionar com o utils, tu precisa importar como fiz na linha de baixo [ from kivy.utils import utils => #:import utils kivy.utils ]
+#:import utils kivy.utils
+
+
+###Como toda página vai ter, de cima pra baixo, 33% imagem, 33% conteúdo e outro 33% outra coisa, vamos usar o FloatLayout
+FloatLayout:
+    ###Basicamente o método de trocar a cor de fundo
+    canvas:
+        Color:
+            rgb: utils.get_color_from_hex("001824")
+            ### Ou tu pode passar o percentual do rgb (68,114,196,1) assim => rgb: (0.266667, 0.447059, 0.768627, 1)
+            ### Obs: para achar o percentual do tbg é fácil: 255 é o máximo para red/green/blue, então fica fácil (68/255, 114/255, 196/255, 1).
+        Rectangle:
+            ###Basicamente vamos pegar o mesmo size do FloatLayout
+            size: self.size
+            ###Basicamente vamos pegar a mesma pos do FloatLayout
+            pos: self.pos
+    Image:
+        id: foto_perfil
+        pos_hint: {"right": 1, "top": 0.9}
+        size_hint: 1, 0.2
+        source: "icones/hash.png"
+    ScreenManager:
+        pos_hint: {"right": 1, "top": 0.7}
+        size_hint: 1, 0.7
+        id: screen_manager
+        LoginPage:
+            ###Por padrão, ele abre essa página
+            name: "loginpage"
+            id: loginpage
+        HomePage:
+            name: "homepage"
+            id: homepage
+        AjustesPage:
+            name: "ajustespage"
+            id: ajustespage
+        ListarVendedoresPage:
+            name: "listarvendedorespage"
+            id: listarvendedorespage
+        FotoPerfilPage:
+            ###Por padrão, ele abre essa página
+            name: "fotoperfilpage"
+            id: fotoperfilpage
+        AdicionarVendedoresPage:
+            name: "adicionarvendedorespage"
+            id: adicionarvendedorespage
+        AdicionarVendasPage:
+            name: "adicionarvendaspage"
+            id: adicionarvendaspage
+        TodasVendasPage:
+            name: "todasvendaspage"
+            id: todasvendaspage
+        VendasOutroVendedorPage:
+            name: "vendasoutrovendedorpage"
+            id: vendasoutrovendedorpage
