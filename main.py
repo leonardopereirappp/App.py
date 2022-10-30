@@ -7,8 +7,11 @@ from divs_py.MyFirebase import MyFirebase
 from divs_py.Banner_Vendedor import BannerVendedor
 import os
 import requests
+import certifi
 from datetime import date
 from functools import partial  # Essa importação serve pra passar um parametro em uma função que está sendo usada como parametro
+
+os.environ["SSL_CERT_FILE"] = certifi.where()
 
 GUI = Builder.load_file('main.kv')  # A parte visual (interface gráfica) se chama GUI
 
