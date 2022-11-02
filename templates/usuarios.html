@@ -1,0 +1,41 @@
+{% extends 'Base.html' %}
+
+{% block body %}
+<div class="container">
+    <h1> Usuários: </h1>
+    {% for usuario in usuario %}   <!-- Esse é o comando python dentro do HTML, que o flask reconhece e manda o retorno -->
+        <div class="container mt-5 p-1 d-flex justify-content-center">
+              <div class="card p-1">
+                    <div class="d-flex align-items-center">
+                        <div class="image p-1">  <img src=" {{ url_for('static', filename='fotos_perfil/{}'.format(usuario.foto_perfil)) }} " class="rounded" width="200" >  </div>
+                            <div class="ml-3 w-100"> <h4 class="mb-0 mt-0"> {{ usuario.username }} </h4> <span>{{ usuario.email }}</span>
+                                    <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                                    {% if usuario.cursos|length == 13 or usuario.cursos|length == 0 %}
+                                        <div class="d-flex flex-column">   <span class="articles">Cursos</span>  <span class="number1">0</span>  </div>
+                                    {% else %}
+                                        <div class="d-flex flex-column">   <span class="articles">Cursos</span>  <span class="number1">{{usuario.cursos.count(';')+1}}</span>  </div>
+                                    {% endif %}
+                                         <div class="d-flex flex-column">   <span class="followers">Posts</span>  <span class="number2">{{usuario.posts|length}}</span> <br/>  </div>
+                                    </div>
+                            </div>
+                    </div>
+              </div>
+        </div>
+
+          <div class="row justify-content-center">
+                <div class="col col-4" style="text-align: center">
+                    <br>
+                    <strong> Cursos </strong> <br>
+                    {% for curso in usuario.cursos.split(';') %}
+                        {% if usuario.cursos == '' or usuario.cursos == 'Não informado'%}
+                            <button type="button" class="btn btn-success mt-2"> Sem cursos informados! </button>
+                        {% else %}
+                            <button type="button" class="btn btn-success mt-2"> {{curso}} </button>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+          </div>
+    {% endfor %}  <!-- É preciso dar o fim do for, é parecido com o VBA que tem o endif -->
+</div>
+<div class="row"> <br> </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'Base.html' %}
+
+{% block body %}
+ <div class="container mt-3">
+    <div class="row">
+        <div class="col">
+            <form method="POST" action="" class="border p-4 mt-2" enctype="multipart/form-data">  <!-- Sempre que tiver um form que sobe um arquivo, tu precisa no form, um outro parâmetro [(enctype="multipart/form-data") => (sem ele os files não funcionam)]-->
+                {{ formcriarcomentario.csrf_token }}
+                <fieldset>
+                    <legend style="text-align:center"> Criar Comentário </legend>
+                        <hr/>
+                    <div class="form-group ">
+                        {{ formcriarcomentario.titulo.label(class="formcriarcomentario-control-label") }}
+                        {% if formcriarcomentario.titulo.errors %}
+                            {{ formcriarcomentario.titulo(class="formcriarcomentario-control is-invalid" ) }}
+                        <div class="invalid-deefback">
+                            {% for erro in formcriarcomentario.titulo.errors %}
+                                {{erro}}
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                            {{ formcriarcomentario.titulo(class="form-control" ) }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group ">
+                        {{ formcriarcomentario.corpo.label(class="formcriarcomentario-control-label") }}
+                        {% if formcriarcomentario.corpo.errors %}
+                            {{ formcriarcomentario.corpo(class="formcriarcomentario-control is-invalid" ) }}
+                        <div class="invalid-deefback">
+                            {% for erro in formcriarcomentario.corpo.errors %}
+                                {{erro}}
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                            {{ formcriarcomentario.corpo(class="form-control" ) }}
+                        {% endif %}
+                    </div>
+                </fieldset>
+                {{ formcriarcomentario.botao_submit_com(class="btn btn-primary mt-2" ) }}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
